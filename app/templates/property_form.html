@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Formulario Propiedad</title>
+  <style>
+    .error { color: red; font-weight: bold; }
+    .ok { color: green; }
+  </style>
+</head>
+<body>
+  <h2>{{ "Editar Inmueble" if mode == "edit" else "Nuevo Inmueble" }}</h2>
+
+  {# Mostrar error pasado por render_template #}
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
+
+  {# Mantener valores enviados o los de la propiedad (para edición) #}
+  <form method="post">
+    <label>Titulo:
+      <input name="titulo" value="{{ (prop['titulo'] if prop else request.form.get('titulo','')) }}">
+    </label><br>
+    <label>Direccion:
+      <input name="direccion" value="{{ (prop['direccion'] if prop else request.form.get('direccion','')) }}">
+    </label><br>
+    <label>Precio:
+      <input name="precio" value="{{ (prop['precio'] if prop else request.form.get('precio','')) }}">
+    </label><br>
+    <button type="submit">{{ "Guardar" }}</button>
+  </form>
+
+  <p><a href="/dashboard">Volver</a></p>
+</body>
+</html>
